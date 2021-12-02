@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGBA Color Picker</title>
+    <script src="https://use.fontawesome.com/e3984647e1.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="sliders">
+            <label for="">Red</label>
+            <input type="range" min="0" max="255" value="0" oninput="getValue()" id="red">
+            <label for="">Green</label>
+            <input type="range" min="0" max="255" value="0" oninput="getValue()" id="green">
+            <label for="">Blue</label>
+            <input type="range" min="0" max="255" value="0" oninput="getValue()" id="blue">
+            <label for="">Alpha</label>
+            <input type="range" min="0.1" max="1.0" step="0.1" value="1" oninput="getValue()" id="alpha">
+            <div class="output-box">
+                <div class="output">rgba(0,0,0,1)</div>
+                <div class="copyBtn" onclick="copy()"><i class="fa fa-clone" aria-hidden="true" style="color: blue;"></i></div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .container{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 340px;
+            background-color: #fff;
+            border-radius: 8px;
+            font-family: 'poppins', sans-serif;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0,.2);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .sliders{
+            width: 280px;
+            height: 310px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .sliders input{
+            position: relative;
+            width: 100%;
+            height: 5px;
+            -webkit-appearance: none;
+            background-color:#e6e6e6;
+            border-radius: 20px;
+        }
+        .sliders input::-webkit-slider-thumb{
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            background-color:#4760f0;
+            border-radius: 50%;
+        }
+        .output-box{
+            width: 280px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            line-height: 50px;
+        }
+        .output-box .output{
+            width: 200px;
+            height: 50px;
+            background: #dbdbdb;   
+        }
+        .output-box .copyBtn{
+            width: 50px;
+            height: 50px;
+            border: 1px solid #dbdbdb;
+            color: #bfbfbf;
+        }
+    </style>
+
+    <script>
+        let outputBox = document.querySelector(".output");
+        let getBody = document.body;
+        function getValue(){
+            let red = document.getElementById("red").value;
+            let green = document.getElementById("green").value;
+            let blue = document.getElementById("blue").value;
+            let alpha = document.getElementById("alpha").value;
+            getBody.style.background= `rgba(${red},${green},${blue},${alpha})`;
+            outputBox.innerHTML= `rgba(${red},${green},${blue},${alpha})`;
+        }
+        function copy(){
+            let element = document.createElement("textarea");
+            element.value = outputBox.textContent;
+            document.body.appendChild(element);
+            element.select();
+            document.execCommand("copy");
+            document.body.removeChild(element);
+            alert("Copied")
+        }
+    </script>
+</body>
+</html>
